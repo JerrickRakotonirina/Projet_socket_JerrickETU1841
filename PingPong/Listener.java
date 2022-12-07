@@ -8,7 +8,7 @@ import javax.swing.event.*;
 import aff.*;
 import jeu.*;
 
-public class Listener implements KeyListener,MouseListener
+public class Listener implements KeyListener
 {
     ConteneurFenetre aff;
 
@@ -84,4 +84,16 @@ public class Listener implements KeyListener,MouseListener
         }
 
     }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
