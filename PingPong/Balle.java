@@ -1,14 +1,12 @@
-package jeu;
+package player;
 
-import jeu.*;
-
-public class Balle{
+public class Balle extends Thread{
     int PosX;
     int PosY;
     int sens;
-    String move;
-    static int longueur = 700;
-    static int largeur = 500;
+    String move="center";
+    int longueur = 700;
+    int largeur = 500;
     int vitesse=50;
     String serv;
 
@@ -80,37 +78,34 @@ public class Balle{
             this.setsens(1);
         }
     }
+    @Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true){
+		    verif_depl_balle();
+		try {
+			sleep(30);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}}
+		
+	}
 
-    public void verif_depl_balle(Table t){
-        if (this.getPosY()+20 >= t.getLongueur())
+    public void verif_depl_balle(){
+        if (this.getPosY()+45 >= this.longueur+75)
         {
-            int val=t.getJoueur()[0].getScore();
-            if(this.getPosX()<t.getJoueur()[1].PositionX | this.getPosX()>t.getJoueur()[1].PositionX+80){
-                val+=1;
-                this.setServ("maty");
-            }
-            t.getJoueur()[0].setScore(val);
-            t.setTest("tsy go");
             this.setsens(-1); 
-            this.setVitesse(this.vitesse-1);
         }
         
-        if (this.getPosY() <= 0)
+        if (this.getPosY() <= 75)
         {
-            int val=t.getJoueur()[1].getScore();
-            if(this.getPosX()<t.getJoueur()[0].PositionX | this.getPosX()>t.getJoueur()[0].PositionX+80){
-                val+=1;
-                this.setServ("maty");
-            }
-            t.getJoueur()[1].setScore(val);
-            t.setTest("tsy go");
             this.setsens(1);
-            this.setVitesse(this.vitesse-1);
         }
-        this.deplacement_balle(this.getsens(), t);
+        this.deplacement_balle(this.getsens());
     }
 
-    public void deplacement_balle(int sens, Table t)
+    public void deplacement_balle(int sens)
     {
         int x = this.getPosX();
         int y = this.getPosY();
@@ -128,8 +123,6 @@ public class Balle{
         }
         if (sens == 1)
         {
-            // x+=5;
-            // y+=10;
             if(this.move=="left"){
                 y+=10;
                 x-=5;
