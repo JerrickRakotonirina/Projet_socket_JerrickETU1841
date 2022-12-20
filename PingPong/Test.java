@@ -103,7 +103,7 @@ public class Test extends JFrame implements KeyListener, Runnable{
 		
 		if(keyCode==KeyEvent.VK_C){
 			
-			ipAdd = JOptionPane.showInputDialog(null, "ex. 192.168.88.29", "Enter server ip:", 1);
+			ipAdd = JOptionPane.showInputDialog(null, "ex. 100.100.10.10", "Enter server ip:", 1);
 			
 			if(ipAdd!=null){
 				
@@ -112,7 +112,7 @@ public class Test extends JFrame implements KeyListener, Runnable{
 				}
 				
 				else{
-					portAdd = JOptionPane.showInputDialog(null, "ex. 2323", "Enter server port number:", 1);
+					portAdd = JOptionPane.showInputDialog(null, "ex. 1024", "Enter server port number:", 1);
 					
 					if(portAdd!=null){
 						if(!isPort(portAdd)){
@@ -156,7 +156,13 @@ public class Test extends JFrame implements KeyListener, Runnable{
 		}  
 	private boolean isIPAddress(String str) {  
 		  Pattern ipPattern = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");  
-		  return ipPattern.matcher(str).matches();  
+		  if(ipPattern.matcher(str).matches()){
+			return true;
+		  }else if(str.equals("localhost")){
+			return true;
+		  }else{
+			return false;
+		  }
 		}
 
  

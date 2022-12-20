@@ -188,7 +188,6 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 
 		g.setColor(Color.BLUE);
         g.fillRect(playerS.getX(), playerS.getY(), playerH, barR);
-        g.setColor(Color.white);
 	    
 	    // - Ball - //
 	    g.setColor(new Color(255,255,255));
@@ -227,42 +226,30 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 		playerS.setBally(movingBALL.getPosY());
 	}
 	
-	  ///////////////////////
-	 // - Update Player - //
-	///////////////////////
-	
-	// - Move bar to Up - //
 	public void playerUP(){
 		if(playerS.getX()>=25 && playerS.getX()+20 < 500){
 			
 			playerS.setX(playerS.getX()-mPLAYER);
-			// System.out.println(""+playerS.getX());
 		}
 	}
 	
-	// - Move bar to Down - //
 	public void playerDOWN(){
 		if(playerS.getX()>=-15 && playerS.getX()+100 < 500){
 			
 			playerS.setX(playerS.getX()+mPLAYER);
-			// System.out.println(""+playerS.getX());
 		}
 	}
 	
-	  /////////////////////////
-	 // - Check Collision - //
-	/////////////////////////
 	
 	public void checkCol(){
 		
 		
-		// - Checking ball side, when a player got a score check -> false * if ball behind of the players check -> true
-		if(playerS.getBallx() < playerC.getX() && playerS.getBallx() > playerS.getX()){
+		if(playerS.getBally()+45 < playerC.getY() && playerS.getBally() > playerS.getY()+barR){
 			check = true;
 		}
 		
 		// - Server Player Score - //
-		if(playerS.getBallx()>playerC.getX() && check){
+		if(playerS.getBally()+45>playerC.getY() && (playerS.getBallx()<playerC.getX() || playerS.getBallx()+45>playerC.getX()+playerH) && check){
 			
 			playerS.setScoreS(playerS.getScoreS()+1);
 			
@@ -270,7 +257,7 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 		}
 		
 		// - Client Player Score - //
-		else if (playerS.getBallx()<=playerS.getX() && check){
+		else if (playerS.getBally()<=playerS.getY()+barR && (playerS.getBallx()<playerS.getX() || playerS.getBallx()+45>playerS.getX()+playerH) && check){
 			
 			playerS.setScoreP(playerS.getScoreP()+1);
 			
@@ -279,20 +266,18 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 		}
 		
 		
-		// - Checking Server Player Bar - //
-		if(movingBALL.getPosX()<=playerS.getX()+barR && movingBALL.getPosY()+45>= playerS.getY() && movingBALL.getPosY()<=playerS.getY()+playerH ){
-			movingBALL.setPosX(playerS.getX()+barR);
-			playerS.setBallx(playerS.getX()+barR);
-			// movingBALL.setXv(movingBALL.getXv()*-1);
-		}
+		// // - Checking Server Player Bar - //
+		// if(movingBALL.getPosX()<=playerS.getX()+barR && movingBALL.getPosY()+45>= playerS.getY() && movingBALL.getPosY()<=playerS.getY()+playerH ){
+		// 	movingBALL.setPosX(playerS.getX()+barR);
+		// 	playerS.setBallx(playerS.getX()+barR);
+		// }
 		
 		
-		// - Checking Client Player Bar - //
-		if(movingBALL.getPosX()+45>=playerC.getX() && movingBALL.getPosY() + 45 >= playerC.getY() && movingBALL.getPosY()<=playerC.getY()+playerH ){
-			movingBALL.setPosX(playerC.getX()-45);
-			playerS.setBallx(playerC.getX()-45);
-			// movingBALL.setXv(movingBALL.getXv()*-1);
-		}
+		// // - Checking Client Player Bar - //
+		// if(movingBALL.getPosX()+45>=playerC.getX() && movingBALL.getPosY() + 45 >= playerC.getY() && movingBALL.getPosY()<=playerC.getY()+playerH ){
+		// 	movingBALL.setPosX(playerC.getX()-45);
+		// 	playerS.setBallx(playerC.getX()-45);
+		// }
 		
 	}
 
@@ -304,6 +289,7 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 		if(keycode == KeyEvent.VK_LEFT){
 			if (this.movingBALL.getsens()==1) {
 				this.movingBALL.setMove("left");
+				this.movingBALL.setBalmove(true);
 			}else{
 				playerUP();
 			}
@@ -312,13 +298,21 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 		if(keycode == KeyEvent.VK_RIGHT){
 			if (this.movingBALL.getsens()==1) {
 				this.movingBALL.setMove("right");
+				this.movingBALL.setBalmove(true);
 			}else{
 				playerDOWN();
+			}
+			repaint();
+		}
+		if(keycode == KeyEvent.VK_DOWN){
+			if (this.movingBALL.getsens()==1) {
+				this.movingBALL.setMove("center");
+				this.movingBALL.setBalmove(true);
 			}
 
 			repaint();
 		}
-		if(Restart == true){
+		if(keycode == KeyEvent.VK_R){
 			restartON = true;
 			playerS.setRestart(true);
 		}

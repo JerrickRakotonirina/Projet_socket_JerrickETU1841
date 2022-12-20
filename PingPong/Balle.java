@@ -9,12 +9,16 @@ public class Balle extends Thread{
     int largeur = 500;
     int vitesse=50;
     String serv;
+    boolean balmove=true;
 
     public Balle(int x,int y,int s)
     {
         this.setPosX(x);
         this.setPosY(y);
         this.setsens(s);
+    }
+    public void setBalmove(boolean balmove) {
+        this.balmove = balmove;
     }
     public String getServ() {
         return serv;
@@ -81,7 +85,7 @@ public class Balle extends Thread{
     @Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(true){
+		while(balmove==true){
 		    verif_depl_balle();
 		try {
 			sleep(30);
@@ -93,16 +97,23 @@ public class Balle extends Thread{
 	}
 
     public void verif_depl_balle(){
-        if (this.getPosY()+45 >= this.longueur+75)
+        if (this.getPosY()+40 >= this.longueur+75)
         {
             this.setsens(-1); 
         }
         
-        if (this.getPosY() <= 75)
+        if (this.getPosY() <= 70)
         {
             this.setsens(1);
         }
         this.deplacement_balle(this.getsens());
+
+        if (this.getPosX()<25) {
+            this.setMove("right");
+        }
+        if (this.getPosX()>460) {
+            this.setMove("left");
+        }
     }
 
     public void deplacement_balle(int sens)

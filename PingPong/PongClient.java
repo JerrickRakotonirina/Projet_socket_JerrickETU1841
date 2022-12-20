@@ -199,13 +199,31 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
 		// TODO Auto-generated method stub
 		int keycode = arg0.getKeyCode();
 		if(keycode == KeyEvent.VK_LEFT){
-			playerUP();
+			// if (this.movingBALL.getsens()==-1) {
+			// 	this.movingBALL.setMove("left");
+			// 	this.movingBALL.setBalmove(true);
+			// }else{
+				playerUP();
+			// }
 			repaint();
 		}
 		if(keycode == KeyEvent.VK_RIGHT){
-			playerDOWN();
+			// if (this.movingBALL.getsens()==-1) {
+			// 	this.movingBALL.setMove("right");
+			// 	this.movingBALL.setBalmove(true);
+			// }else{
+				playerDOWN();
+			// }
 			repaint();
 		}
+		// if(keycode == KeyEvent.VK_DOWN){
+		// 	if (this.movingBALL.getsens()==1) {
+		// 		this.movingBALL.setMove("center");
+		// 		this.movingBALL.setBalmove(true);
+		// 	}
+
+		// 	repaint();
+		// }
 		if(playerS.isRestart()){
 			playerC.restart = true;
 			reset = true;
