@@ -75,7 +75,7 @@ public class PongClient extends JFrame implements KeyListener, Runnable, WindowL
     		 System.out.println("Connected to server...");
             
         	 if(clientSoc.isConnected()){
-            	System.out.println("TEST");
+            	System.out.println("Game started");
         		
  
             	 

@@ -198,14 +198,14 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 	    g.setFont(mFont);
 	    g.setColor(Color.white);
 	    if(message.length!=0){
-	    g.drawString(message[0],WIDTH/4-31,HEIGHT/2+38);
-	    if(message.length>1){
-	    	if(message[1].length()>6){
-	    	    	g.setFont(rFont);
+	    	g.drawString(message[0],WIDTH/4-31,HEIGHT/2+38);
+	    	if(message.length>1){
+	    		if(message[1].length()>6){
+	    		    g.setFont(rFont);
 	    			g.setColor(new Color(228,38,36));
 	    			g.drawString(message[1],WIDTH/4-31,HEIGHT/2+100);
+	    		}
 	    	}
-	    }
 	   }
 	   return bufferedImage;
 	}
@@ -264,6 +264,15 @@ public class PongServer extends JFrame implements KeyListener, Runnable, WindowL
 			check = false;
 			
 		}
+
+		// else if((playerS.getBallx()>playerS.getX() || playerS.getBallx()+45<playerS.getX()+playerH) && check){
+		// 	this.movingBALL.setsens(this.movingBALL.getsens()*-1);
+		// 	check = false;
+		// }
+		// else if((playerS.getBallx()>playerC.getX() || playerS.getBallx()+45<playerC.getX()+playerH) && check){
+		// 	this.movingBALL.setsens(this.movingBALL.getsens()*-1);
+		// 	check = false;
+		// }
 		
 		
 		// // - Checking Server Player Bar - //
